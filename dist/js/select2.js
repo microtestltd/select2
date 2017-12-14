@@ -4397,14 +4397,19 @@ S2.define('select2/dropdown/attachBody',[
     css.top -= parentOffset.top;
     css.left -= parentOffset.left;
 
-    if (!isCurrentlyAbove && !isCurrentlyBelow) {
-      newDirection = 'below';
-    }
+    if (this.options.get('dropdownPosition') == 'above' || 
+        this.options.get('dropdownPosition') == 'below') {
+      newDirection = this.options.get('dropdownPosition');
+    } else {
+      if (!isCurrentlyAbove && !isCurrentlyBelow) {
+        newDirection = 'below';
+      }
 
-    if (!enoughRoomBelow && enoughRoomAbove && !isCurrentlyAbove) {
-      newDirection = 'above';
-    } else if (!enoughRoomAbove && enoughRoomBelow && isCurrentlyAbove) {
-      newDirection = 'below';
+      if (!enoughRoomBelow && enoughRoomAbove && !isCurrentlyAbove) {
+        newDirection = 'above';
+      } else if (!enoughRoomAbove && enoughRoomBelow && isCurrentlyAbove) {
+        newDirection = 'below';
+      }
     }
 
     if (newDirection == 'above' ||
@@ -4978,6 +4983,7 @@ S2.define('select2/defaults',[
       amdLanguageBase: './i18n/',
       closeOnSelect: true,
       debug: false,
+      dropdownPosition : 'both',
       dropdownAutoWidth: false,
       escapeMarkup: Utils.escapeMarkup,
       language: EnglishTranslation,
